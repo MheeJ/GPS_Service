@@ -1,6 +1,8 @@
 package com.example.gpsservice;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,13 +22,14 @@ import java.util.ArrayList;
 public class GPSMovementService extends AppCompatActivity implements View.OnClickListener {
     public double latitude, last_latitude; //현위치위도
     String latitudeStr,longitudeStr;
-    public double longitude, last_longtitude;
-    Button button;
+    public double longitude, last_longitude;
+    Button button, bbb;
     TextView LatitudeText, LongitudeText;
     public String mlocation;
     public ArrayList<String> mlongitudeStrArray;
     public ArrayList<String> mlatitudeStrArray;
-    String mLocationStr;
+    String longitude_list;
+    String latitude_list;
     public boolean running;
 
     @Override
@@ -53,8 +56,8 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
     public void getCurrentPosition() {
         final LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     0);
         } else {
 
@@ -63,29 +66,38 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
             longitude = location.getLongitude();
             latitude = location.getLatitude();
 
-
-
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+            if(longitude !=0 && latitude !=0 ){
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                        1000,
+                        10,
+                        gpsLocationListener);
+                LocationStr();
+            }
+            else{
+                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                        1000,
+                        10,
+                        gpsLocationListener);
+                LocationStr();
+            }
+            /*lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                     1000,
-                    1,
+                    10,
                     gpsLocationListener);
             lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                     1000,
-                    1,
-                    gpsLocationListener);
-
-
+                    10,
+                    gpsLocationListener);*/
         }
-
-            LocationStr();
 
     }
 
     final LocationListener gpsLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
 
-            last_latitude = location.getLongitude();
-            last_longtitude = location.getLatitude();
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+
          /*   Double lastlongitude = location.getLongitude();
             String lastlongitudeStr = String.valueOf(lastlongitude);
             Double lastlatitude = location.getLatitude();
@@ -108,6 +120,7 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
             }*/
 
            //
+
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -118,14 +131,19 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
 
         public void onProviderDisabled(String provider) {
         }
+
+
     };
 
     //현재위치 받아와서 Array에 계속 저장 및 String으로 변환
     public void LocationStr(){
-        longitudeStr = String.valueOf(longitude);
-        latitudeStr = String.valueOf(latitude);
 
-        if(last_latitude == latitude && last_longtitude == longitude){
+        longitudeStr = String.valueOf(longitude);
+        mlongitudeStrArray.add(longitudeStr);
+        latitudeStr = String.valueOf(latitude);
+        mlatitudeStrArray.add(latitudeStr);
+
+      /*  if(last_latitude == latitude && last_longitude == longitude){
             longitudeStr = null;
             latitudeStr = null;
         }
@@ -133,15 +151,15 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
             mlongitudeStrArray.add(longitudeStr);
             mlatitudeStrArray.add(latitudeStr);
 
-        }
-
+        }*/
         String longitude_list = String.join("#",mlongitudeStrArray);
         String latitude_list = String.join("#",mlatitudeStrArray);
 
         LongitudeText.setText(longitude_list);
         LatitudeText.setText(latitude_list);
 
-        getCurrentPosition();
+
+
     }
 
 
@@ -151,6 +169,8 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
         button.setOnClickListener(this);
         LongitudeText = (TextView) findViewById(R.id.longitudetext);
         LatitudeText = (TextView)findViewById(R.id.latitudetext);
+        bbb = (Button) findViewById(R.id.btn22);
+        bbb.setOnClickListener(this);
     }
 
 
@@ -158,13 +178,17 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1:
-              // getCurrentPosition();
-                /*String longtitude_list = String.join("#",mlongitudeStrArray);
-                String latitude_list = String.join("#",mlatitudeStrArray);
-                LongitudeText.setText(longtitude_list);
-               LatitudeText.setText(latitude_list);*/
-               // running = false;
+                /*Intent intent1 = new Intent(this,GPSMethods.class);
+                intent1.putExtra("Now_Longitude", last_longitude);
+                intent1.putExtra("Now_Latitude",last_latitude);
+                startActivity(intent1);*/
+                //getCurrentPosition();
+
                 break;
+
+            case R.id.btn22:
+                Intent intent1 = new Intent(this,GPS_Example.class);
+                startActivity(intent1);
 
         }
     }

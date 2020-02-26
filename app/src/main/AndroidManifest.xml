@@ -21,10 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".GPSMovementService"></activity>
-        <service
-            android:name=".GPSMovementService"
-            android:enabled="true"
-            ></service>
+        <activity android:name=".GPSMethods"></activity>
+        <activity android:name=".GPS_Example"></activity>
+        <activity android:name=".GPS_Example2"></activity>
     </application>
 
 </manifest>

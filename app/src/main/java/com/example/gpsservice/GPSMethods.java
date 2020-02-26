@@ -1,6 +1,7 @@
 package com.example.gpsservice;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -32,7 +33,6 @@ public class GPSMethods extends AppCompatActivity implements View.OnClickListene
         initObject();
 
 
-
     }
 
 
@@ -47,17 +47,29 @@ public class GPSMethods extends AppCompatActivity implements View.OnClickListene
         My_Latitude_Text = (TextView)findViewById(R.id.latitudetext);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        switch(requestCode){
+            case 1:
+                if(resultCode==RESULT_OK){//서브Activity에서 보내온 resultCode와 비교
+                    //서브액티비티에서 인텐트에 담아온 정보 꺼내기
+                    String log=data.getStringExtra("Now_Longitude");
+                    String lat = data.getStringExtra("Now_Latitude");
+                    //텍스트뷰에 수정된 문자열 넣기
+                    My_Longtitude_Text.setText(log);
+                    My_Latitude_Text.setText(lat);
+                }else{
+
+                }
+                break;
+        }
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.my_location:
-                // getCurrentPosition();
-                /*String longtitude_list = String.join("#",mlongitudeStrArray);
-                String latitude_list = String.join("#",mlatitudeStrArray);
-                LongitudeText.setText(longtitude_list);
-               LatitudeText.setText(latitude_list);*/
-                // running = false;
+
                 break;
 
         }

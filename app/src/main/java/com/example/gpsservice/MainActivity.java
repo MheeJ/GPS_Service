@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.strat_btn:
-                Intent intent3 = new Intent(this,GPSMovementService.class);
-                startActivity(intent3);
+                Intent intent = new Intent(this,GPS_Example2.class);
+                startActivity(intent);
                 break;
 
         }

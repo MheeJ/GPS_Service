@@ -38,6 +38,12 @@
             android:id="@+id/latitudetext"
             android:text="Hello World!" />
 
+        <Button
+            android:id="@+id/btn22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="확인" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
