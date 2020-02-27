@@ -20,11 +20,11 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 
 public class GPSMovementService extends AppCompatActivity implements View.OnClickListener {
-    public double latitude, last_latitude; //현위치위도
-    String latitudeStr,longitudeStr;
-    public double longitude, last_longitude;
+    double latitude, last_latitude; //현위치위도
+    String latitudeStrtt,longitudeStrtt;
+    double longitude, last_longitude;
     Button button, bbb;
-    TextView LatitudeText, LongitudeText;
+    TextView LatitudeTexttt, LongitudeTexttt;
     public String mlocation;
     public ArrayList<String> mlongitudeStrArray;
     public ArrayList<String> mlatitudeStrArray;
@@ -35,7 +35,7 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gps_movement_service);
+        setContentView(R.layout.gpsmovementservice);
 
         initObject();
 
@@ -138,10 +138,10 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
     //현재위치 받아와서 Array에 계속 저장 및 String으로 변환
     public void LocationStr(){
 
-        longitudeStr = String.valueOf(longitude);
-        mlongitudeStrArray.add(longitudeStr);
-        latitudeStr = String.valueOf(latitude);
-        mlatitudeStrArray.add(latitudeStr);
+        longitudeStrtt = String.valueOf(longitude);
+        mlongitudeStrArray.add(longitudeStrtt);
+        latitudeStrtt = String.valueOf(latitude);
+        mlatitudeStrArray.add(latitudeStrtt);
 
       /*  if(last_latitude == latitude && last_longitude == longitude){
             longitudeStr = null;
@@ -155,8 +155,8 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
         String longitude_list = String.join("#",mlongitudeStrArray);
         String latitude_list = String.join("#",mlatitudeStrArray);
 
-        LongitudeText.setText(longitude_list);
-        LatitudeText.setText(latitude_list);
+        LongitudeTexttt.setText(longitude_list);
+        LatitudeTexttt.setText(latitude_list);
 
 
 
@@ -167,9 +167,9 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
 
         button = (Button) findViewById(R.id.button1);
         button.setOnClickListener(this);
-        LongitudeText = (TextView) findViewById(R.id.longitudetext);
-        LatitudeText = (TextView)findViewById(R.id.latitudetext);
-        bbb = (Button) findViewById(R.id.btn22);
+        LongitudeTexttt = (TextView) findViewById(R.id.longitudetexttt);
+        LatitudeTexttt = (TextView)findViewById(R.id.latitudetexttt);
+        bbb = (Button) findViewById(R.id.btn22t);
         bbb.setOnClickListener(this);
     }
 
@@ -186,7 +186,7 @@ public class GPSMovementService extends AppCompatActivity implements View.OnClic
 
                 break;
 
-            case R.id.btn22:
+            case R.id.btn22t:
                 Intent intent1 = new Intent(this,GPS_Example.class);
                 startActivity(intent1);
 

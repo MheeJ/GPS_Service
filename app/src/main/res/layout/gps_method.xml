@@ -4,10 +4,16 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/my_location"
+        android:id="@+id/my_location_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="my_location" />
+
+    <TextView
+        android:id="@+id/my_longitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="경도" />
 
     <TextView
         android:id="@+id/my_latitude"
@@ -15,9 +21,6 @@
         android:layout_height="wrap_content"
         android:text="위도" />
 
-    <TextView
-        android:id="@+id/my_longitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="경도" />
+
+
 </LinearLayout>

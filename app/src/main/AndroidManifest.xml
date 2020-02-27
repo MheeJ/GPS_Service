@@ -24,6 +24,12 @@
         <activity android:name=".GPSMethods"></activity>
         <activity android:name=".GPS_Example"></activity>
         <activity android:name=".GPS_Example2"></activity>
+        <activity android:name=".GPS_Movement_Service"></activity>
+        <service
+            android:name=".GPS_Movement_Service"
+            android:enabled="true"
+            android:stopWithTask="false"><!-- 사용자가 강제로 서비스를 종료하더라도 자동으로 서비스 다시 시작하기-->
+        </service>
     </application>
 
 </manifest>
